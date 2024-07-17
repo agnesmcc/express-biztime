@@ -11,6 +11,9 @@ app.use(express.json());
 const companiesRouter = require("./routes/companies");
 app.use("/companies", companiesRouter);
 
+const invoicesRouter = require("./routes/invoices");
+app.use("/invoices", invoicesRouter);
+
 /** 404 handler */
 
 app.use(function(req, res, next) {
