@@ -55,11 +55,11 @@ test("GET /companies/:code not found", async () => {
 
 test("POST /companies", async () => {
     const response = await request(app).post("/companies").send({
-        code: "TEST", name: "Test Company", description: "Test Description" });
+        name: "Test Company", description: "Test Description" });
     expect(response.statusCode).toEqual(201);
     expect(response.body).toEqual({
         company: {
-            code: "TEST",
+            code: "test-company",
             name: "Test Company",
             description: "Test Description"
         }
