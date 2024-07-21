@@ -65,13 +65,19 @@ test("POST /invoices", async () => {
 })
 
 test("PUT /invoices/:id", async () => {
-    const invoice1 = await db.query("SELECT * FROM invoices");
-    const response = await request(app).put(`/invoices/${invoice1.rows[0].id}`).send({
-        comp_code: "apple", amt: 100
+    const invoice1 = await db.query("SELECT * FROM invoices WHERE comp_code = 'apple'");
+    let response = await request(app).put(`/invoices/${invoice1.rows[0].id}`).send({
+        amt: 100, paid: true
     });
     expect(response.statusCode).toEqual(200);
     expect(response.body.invoice).toHaveProperty('amt', 100);
+    expect(response.body.invoice).toHaveProperty('paid', true);
     expect(response.body.invoice).toHaveProperty('comp_code', 'apple');
+    response = await request(app).put(`/invoices/${invoice1.rows[0].id}`).send({
+        amt: 100, paid: false
+    });
+    expect(response.body.invoice).toHaveProperty('paid', false);
+    expect(response.body.invoice).toHaveProperty('paid_date', null);
 })
 
 test("DELETE /invoices/:id", async () => {
