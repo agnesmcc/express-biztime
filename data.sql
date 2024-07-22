@@ -1,5 +1,7 @@
 \c biztime
 
+DROP TABLE IF EXISTS industries_companies;
+DROP TABLE IF EXISTS industries;
 DROP TABLE IF EXISTS invoices;
 DROP TABLE IF EXISTS companies;
 
